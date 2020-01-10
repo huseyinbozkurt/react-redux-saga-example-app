@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getDataRequest } from './actions/dataActions';
+import Rendercheckboxtree from './components/renderCheckboxTree' 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {    
+  componentDidMount() {
+    this.props.getDataRequest();
+  }
+
+  mapData = () => {
+      const filteredData = this.props.data.filter(item => item.mailProcessingCenters.length > 0);
+      const mappedData = filteredData.map(item => {
+        return {
+          value: item.code,
+          label: `${item.shortCode ? item.shortCode : item.code} ${!!item.shortName ? item.shortName : ''}`,
+          children: item.mailProcessingCenters.map((mailCenter) => {
+            return {
+              value: mailCenter.code,
+              label: `${mailCenter.code} ${!!mailCenter.name ? mailCenter.name : ''}`
+            }
+          })
+        }
+      })
+      return mappedData;
+  }
+
+  render() {
+    return(
+      <div>
+         { Array.isArray(this.props.data) ?
+         <Rendercheckboxtree nodes={this.mapData()}></Rendercheckboxtree> : null }
+      </div>
+    )
+  }
 }
 
-export default App;
+// redux providing state takeover
+const mapStateToProps = (state) => {
+    console.log("App State ->", state);
+    return {
+      data: state.data.test
+    }
+}
+export default connect(mapStateToProps, { getDataRequest })(App)
