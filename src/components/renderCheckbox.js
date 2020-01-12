@@ -2,16 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Table from "./table";
 import {ExportCSV} from './exportFile'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+    Link
+  } from "react-router-dom";
+
+library.add(faLongArrowAltLeft);
 
 class RenderCheckbox extends React.Component {
     state = {
         checked: [],
     };
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.state.checked !== nextState.checked) {
-            return false;
-        }
-    }
     handleChange = (change) => {
         const {checked} = this.state;
         console.log(checked)
@@ -32,15 +35,15 @@ class RenderCheckbox extends React.Component {
         const columns = [{
             Header: '',
             accessor: 'checked',
-            Cell: props => <input type='checkbox' defaultChecked={false} onChange={() => this.handleChange(props)}/>
+            Cell: props => <input type='checkbox' className="visible-checkbox" defaultChecked={false} checked={this.state.checked.includes(props.row.values.code)} onChange={() => this.handleChange(props)}/>
           },{
             Header: '',
             accessor: 'code'
           }]
-        console.log(this.state.checked)
         return (
             <div>
-                <ExportCSV csvData={this.state.checked} fileName={'Mail Processing Center Codes'}>Download</ExportCSV>
+               <Link to='/'>Back</Link>
+                <ExportCSV csvData={['code'].concat(this.state.checked)} fileName={'Mail Processing Center Codes'}>Download</ExportCSV>
             <Table
                 data={this.props.data}
                 columns={columns}

@@ -1,7 +1,58 @@
 .App {
   text-align: center;
+  
 }
+.container {
+  margin-left: 0;
+  margin-top: 15px;
+}
+.btn-select-all, .btn-select-none {
+  border: none;
+    font-size: 13px;
+    color: #0094ff;
+    outline: 0;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.rct-collapse-btn {
+  font-size: 12px;
+  background: none;
+  border: none;
+  outline:0; 
 
+}
+input[type=checkbox], input[type=radio] {
+visibility: hidden;
+width: 1px;
+}
+input:checked + .rct-checkbox .fa-check-square {
+  background: #00b8ff;
+  border: 1px solid;
+  width: 1em !important;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-right: 5px;
+}
+input:checked + span.rct-checkbox {
+  color: white;
+  background-color: white;
+}
+.fa-check-square.rct-icon-uncheck {
+  background: #7b7b7b;
+  border: 1px solid #b3b0b0;
+}
+.rct-icon-uncheck {
+  border: 1px solid #989898;
+  color: white;
+  border-radius: 3px;
+  width: 15px !important;
+  height: 15px !important;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.rct-collapse-btn:focus {
+  outline:0; 
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -26,6 +77,11 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.visible-checkbox{
+  visibility: visible !important;
+  width: auto !important;
 }
 
 @keyframes App-logo-spin {

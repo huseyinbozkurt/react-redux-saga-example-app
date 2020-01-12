@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDataRequest } from './actions/dataActions';
 import Rendercheckboxtree from './components/renderCheckboxTree' 
-
+import './App.css'
 class App extends Component {    
   componentDidMount() {
     this.props.getDataRequest();
