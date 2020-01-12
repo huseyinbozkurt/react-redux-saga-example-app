@@ -16,8 +16,22 @@ function* watchFetchData() {
     yield takeEvery(Types.GET_DATA_REQUEST, fetchData);
 }
 
+function* selectData() {
+    try {
+        yield put(actions.setSelection( {data} ))
+    }catch(e) {
+        console.log(e);
+    }
+}
+
+function* watchSelectionData() {
+    // create watcher of fetchData function
+    yield takeEvery(Types.SET_SELECTION_REQUEST, selectData);
+}
+
 const DataSagas = [
-    fork(watchFetchData)
+    fork(watchFetchData),
+    fork(watchSelectionData)
 ];
 
 export default DataSagas;

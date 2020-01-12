@@ -9,10 +9,14 @@ const actions = {
     getDataSuccess: ({data}) => ({
         type: Types.GET_DATA_SUCCESS,
         payload: { data }
+    }),
+    setSelection: ({data}) => ({
+        type: Types.SET_SELECTION_SUCCESS,
+        payload: { data }
     })
 }
 
-
+export const setSelection = actions.setSelection
 export const getDataRequest = actions.getDataRequest
 export const getDataSuccess = actions.getDataSuccess
 export default actions;
